@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>New Messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar debounce="400" style="margin-top: 20px;" mode="ios" type="search" inputmode="search"
+    [formControl]="searchKey" search-icon="" placeholder="Search" (ionClear)="resetChanges($event)" autofocus>
+  </ion-searchbar>
+  <ion-item lines="none" (click)="onCreateGroup()">
+    <ion-button color="light" shape="round" mode="ios" disable="true">
+      <ion-icon name="people-outline"></ion-icon>
+    </ion-button>
+    <ion-label class="ion-margin-start">Create New Group</ion-label>
+  </ion-item>
+  <ion-slides #ionSlides class="ion-margin-start" *ngIf="addedGroups.length"
+    [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slide *ngFor="let card of addedGroups; let index=index">
+      <ion-col class="ion-text-center">
+        <ion-avatar style="margin-bottom: 10px;">
+        </ion-avatar>
+        <ion-label *ngIf="card.residents" class="" style="font-size: 12px;">{{card.residents.name}}</ion-label>
+        <ion-label *ngIf="card.employees" class="" style="font-size: 12px;">
+          {{card.employees.name}}</ion-label>
+        <ion-button class="ion-no-padding" style="position: absolute; top: -8px; left: 30px;" size="small" fill="clear"
+          shape="round" mode="ios" (click)="removeSelectedGroup()">
+          <ion-icon color="medium" name="close-circle"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-slide>
+  </ion-slides>
+  <form *ngIf="addedGroups.length" [formGroup]="groupForm" (ngSubmit)="createMessageGroup()">
+    <div style="margin-left: 16px;">
+      <mat-form-field style="width: 90%;">
+        <mat-label>Group Name:</mat-label>
+        <input matInput type="text" formControlName="name" required>
+        <mat-error *ngIf="groupForm.controls.name.touched && groupForm.controls.name.invalid">
+          <span *ngIf="groupForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="margin-left: 16px;">
+      <ion-button color="secondary" [disabled]="!groupForm.valid" type="submit">Create</ion-button>
+    </div>
+  </form>
+  <ion-list>
+    <ion-label class="ion-margin-start">Suggested Employee Group</ion-label>
+    <ion-radio-group *ngIf="searchResults$ | async as list" [formControl]="selectedSearchData">
+      <ion-item lines="none" *ngFor="let item of list">
+        <ion-radio [disabled]="!isClickCreateGroup" color="green" slot="end" mode="md" [value]="item"></ion-radio>
+        <ion-avatar></ion-avatar>
+        <ion-label class="ion-text-wrap ion-margin-start">{{item.employees.name}}</ion-label>
+      </ion-item>
+    </ion-radio-group>
+    <ion-label class="ion-margin-start">Suggested Resident Group</ion-label>
+    <ion-radio-group *ngIf="residentSearchResult$ | async as list" [formControl]="selectedSearchData">
+      <ion-item lines="none" *ngFor="let item of list">
+        <ion-radio [disabled]="!isClickCreateGroup" color="green" slot="end" mode="md" [value]="item"></ion-radio>
+        <ion-avatar></ion-avatar>
+        <ion-label class="ion-text-wrap ion-margin-start">{{item.residents.name}}</ion-label>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

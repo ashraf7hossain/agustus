@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="amenity">{{amenity.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="amenity" class="ion-padding-bottom">
+  <!-- <ion-slides [pager]="amenity.images.length > 1" [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slide *ngFor="let image of amenity.images">
+      <img [src]="image.url">
+      <h3 style="color: white; position: absolute; bottom: 10px; left:10px">{{amenity.name}}</h3>
+    </ion-slide>
+  </ion-slides> -->
+  <ion-slides pager="false" [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slide>
+      <img [src]="baseUrl + '/api/file/'+amenity.primaryImageId">
+      <h3 style="color: white; position: absolute; bottom: 10px; left:10px">{{amenity.name}}</h3>
+    </ion-slide>
+  </ion-slides>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-button slot="end" *ngIf="!isCurrentDate" (click)="onClickDateChange('previous')" size="large" fill="clear">
+        <ion-icon name="chevron-back"></ion-icon>
+      </ion-button>
+      <ion-label style="max-width: 120px;" slot="end">{{ isCurrentDate ? 'Today' : serachStartTime | date:
+        'mediumDate'}}
+      </ion-label>
+      <ion-button (click)="onClickDateChange('next')" size="large" slot="end" fill="clear">
+        <ion-icon name="chevron-forward"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item lines="none" style="overflow-x: auto;">
+      <ion-label class="ion-no-padding">Open: {{amenity.openTime | date: 'hh:mm a'}}</ion-label>
+      <ion-label class="ion-no-padding">Close: {{amenity.closeTime | date: 'hh:mm a'}}</ion-label>
+      <ion-item lines="none"
+        [className]="amenity.canReserve || amenity.status != 'Closed'?'active-property': 'inactive-property'"
+        [ngClass]="{'full-property': amenity.status == 'Full'}">
+        <ion-label *ngIf="amenity.weekdays && amenity.canReserve">Available:
+          <ng-container *ngFor="let week of weekList;let index=index">
+            <span style="margin-left: 4px;" *ngIf="amenity.weekdays.charAt(index) == 1">{{week}}</span>
+          </ng-container>
+        </ion-label>
+        <ion-row slot="end">
+          <ion-label>Max Guest: {{amenity.maxGuests}}</ion-label>
+        </ion-row>
+      </ion-item>
+    </ion-item>
+    <ion-item lines="none" *ngFor="let timeSlot of timeRange; let i=index">
+      <ion-label class="ion-no-padding">{{timeSlot.startTime | date: 'hh:mm a'}}</ion-label>
+      <ion-item lines="full"
+        [className]="timeSlot.isApproved || (timeSlot.id && !timeSlot.isApproved ) ?'inactive-property': 'active-property'"
+        [ngClass]="{'full-property': amenity.status == 'Full'}">
+        <ion-label *ngIf="timeSlot.isApproved" class="ion-text-wrap" style="width: 60%;">{{timeSlot.userId == userId ?
+          'Reserved by myself' : 'Closed'}}
+        </ion-label>
+        <ion-label *ngIf="!timeSlot.isApproved" class="ion-text-wrap" style="width: 60%;">{{timeSlot.id ? 'Pending' :
+          'Available'}}
+        </ion-label>
+        <ion-button [disabled]="timeSlot.id" (click)="addReservation(timeSlot)" fill="clear" slot="end">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-item>
+  </ion-list>
+</ion-content>

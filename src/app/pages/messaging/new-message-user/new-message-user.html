@@ -1,0 +1,39 @@
+<ion-header color="primary">
+  <ion-toolbar>
+    <ion-title *ngIf="managementUserId"> New Massage</ion-title>
+    <ion-title *ngIf="messageGroupId">Add User</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div style="">
+    <!-- <ion-button color="drak" (click)="close()">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-button>
+  </ion-buttons> -->
+    <div class="row" style="height: 70px; background-color: #f0f0f0;">
+      <div class="col-sm-12" style="padding: 5px 0; text-align: center;">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Add User</mat-label>
+          <mat-select [(ngModel)]="newMessageUser" name="newMessageUser">
+            <!--<input (keyup)="onKey($event.target.value)">-->
+            <mat-optgroup label="Employees">
+              <mat-option *ngFor="let employee of messageEmployees" [value]="employee">{{employee.name}}</mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Residents">
+              <mat-option *ngFor="let resident of messageResidents" [value]="resident">{{resident.name}}</mat-option>
+            </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <ion-row class="">
+      <ion-col class="ion-text-right">
+        <ion-button *ngIf="messageGroupId" color="primary" (click)="addUser()">Add User</ion-button>
+        <ion-button *ngIf="managementUserId" color="primary" (click)="addUser()">Add</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

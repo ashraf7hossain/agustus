@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-wrap ion-padding-end">Add Visitor</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="visitorForm" (ngSubmit)="submitVisitor()">
+    <div class="row">
+      <ion-item class="ion-no-padding" lines="full">
+        <ion-label position="floating">Guest Name:</ion-label>
+        <ion-input formControlName="visitorName" required></ion-input>
+      </ion-item>
+      <mat-error *ngIf="visitorForm.controls.visitorName.touched && visitorForm.controls.visitorName.invalid">
+        <span *ngIf="visitorForm.controls.visitorName.errors.required">This field is mandatory.</span>
+      </mat-error>
+      <!-- </div> -->
+      <div class="" style="margin-top: 16px;">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>
+            Give Access Pass:</ion-label>
+          <ion-select formControlName="isAccessKey" placeholder="">
+            <ion-select-option *ngFor="let dropList of dropDownList" [value]="dropList.value">{{dropList.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <mat-error *ngIf="visitorForm.controls.isAccessKey.touched && visitorForm.controls.isAccessKey.invalid">
+          <span *ngIf="visitorForm.controls.isAccessKey.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>Give Parking Pass:</ion-label>
+          <ion-select formControlName="isParkingPassKey">
+            <ion-select-option *ngFor="let dropList of dropDownList" [value]="dropList.value">{{dropList.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <mat-error
+          *ngIf="visitorForm.controls.isParkingPassKey.touched && visitorForm.controls.isParkingPassKey.invalid">
+          <span *ngIf="visitorForm.controls.isParkingPassKey.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>Arrival Time:</ion-label>
+          <ion-icon slot="end" name="calendar-outline"></ion-icon>
+          <ion-datetime formControlName="arrivalTime" displayFormat="D MMM YYYY H:mm">
+          </ion-datetime>
+        </ion-item>
+        <mat-error *ngIf="visitorForm.controls.arrivalTime.touched && visitorForm.controls.arrivalTime.invalid">
+          <span *ngIf="visitorForm.controls.arrivalTime.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>Departure Time:</ion-label>
+          <ion-icon slot="end" name="calendar-outline"></ion-icon>
+          <ion-datetime formControlName="departureTime" displayFormat="D MMM YYYY H:mm"></ion-datetime>
+        </ion-item>
+        <mat-error *ngIf="visitorForm.controls.departureTime.touched && visitorForm.controls.departureTime.invalid">
+          <span *ngIf="visitorForm.controls.departureTime.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <ion-item class="ion-no-padding ion-margin-top">
+        <ion-label position="floating">Notes:</ion-label>
+        <ion-textarea formControlName="notes"></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="" style="padding-right: 0; margin-top: 16px;">
+      <ion-button color="secondary" [disabled]="!visitorForm.valid" type="submit">Create</ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile Picture</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="ion-content">
+  <ion-row class="ion-justify-content-center" *ngIf="username && !imageFiles.length">
+    <ion-col size="auto">
+      <img class="img-avatar" src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+
+    </ion-col>
+  </ion-row>
+  <!-- <div  class="ion-padding-top ion-text-center">
+   </div> -->
+
+     <ng-container *ngIf="username && imageFiles.length" style="margin-top: 16px;" >
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide  *ngFor="let item of imageFiles;let i=index">
+            <img src="{{item}}" width="100"/>
+            <ion-fab vertical="top" horizontal="end"  slot="fixed">
+              <ion-fab-button color="light" (click)="removeImage(i)">
+                <ion-icon  name="close"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+        </ion-slide>
+      </ion-slides>
+    </ng-container>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="auto">
+        <ion-title>
+          <div class="ion-text-wrap ion-text-center ion-margin-vertical" >Take Your Photo and Upload! It will help us to recognize you.</div>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="auto" *ngIf="isLoader">
+            <div>
+              <mat-spinner style="margin:0 auto;" [diameter]="50"></mat-spinner>
+            </div>
+          </ion-col>
+          <ion-col size="auto" *ngIf="!isLoader">
+            <div>
+              <ion-button  class="ion-margin-end" color="primary"  (click)="takePhoto()">Take Photo</ion-button>
+            </div> 
+          </ion-col>
+          <ion-col size="auto" *ngIf="!isLoader">
+            <div>
+              <ion-button  *ngIf="!isLoader" color="secondary" [disabled]="imageFiles.length < 3" (click)="uploadImage()">Uplaod Image</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      <!-- <div class="row">
+         <mat-spinner *ngIf="isLoader"></mat-spinner>
+          <ion-button *ngIf="!isLoader" class="ion-margin-end" color="primary"  (click)="takePhoto()">Take Photo</ion-button>
+          <ion-button   *ngIf="!isLoader" color="secondary" [disabled]="imageFiles.length < 3" (click)="uploadImage()">Uplaod Image</ion-button>
+      </div> -->
+      <img #imageContent hidden width="300" height="300" >
+
+</ion-content>

@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Subscription</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+    <ng-container *ngFor = "let product of products">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> {{ product.name }} </ion-card-title>
+          <ion-card-subtitle>{{ product.unit_amount | currency}}</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+          Here's a small text description for the card content. Nothing more, nothing less.
+        </ion-card-content>
+        <ion-button (click) = "setOpen(true)">Subscribe</ion-button>
+      </ion-card>
+    </ng-container>
+ 
+
+  <!-- <button (click) = "subscribe()">
+    subscribe
+  </button>
+  <button (click) = "createProduct()">
+    create product
+  </button>
+  <button (click) = "getter('products')">
+    GET
+  </button> -->
+  <ng-container *ngIf="loadPayment">
+    <h2 style="margin-left: 30px;"> Choose A Plan </h2>
+    <ion-list *ngFor="let item of subscriptionPackages">
+      <ion-card class="ion-text-center" style="margin: 30px; margin-top: 0px;">
+        <ion-card-header>
+          <ion-img [src]="item.imageSrc" style="height: 140px;"></ion-img>
+          <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
+          <ion-card-title>{{item.price}}</ion-card-title>
+          <ion-card-subtitle>{{item.period}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button shape="round" color="light" slot="end" (click)="onSelectPlan(item)">Select</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </ng-container>
+  <div *ngIf="loadPayment" style="display: flex; justify-content: center;">
+    <app-checkout [subscription]="subscriptionData" [priceId]="selectedPlan.priceId"
+      (successEmitter)="onSuccessPayment($event)">
+    </app-checkout>
+    <ion-button shape="round" color="light" slot="end" (click)="onSelectPlan(null)">Cancel</ion-button>
+  </div>
+  <p>
+    {{ subscriptionList | json }}
+  </p>
+</ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color = "primary">
+        <ion-title>Modal</ion-title>
+        <ion-buttons slot="end">
+          <ion-button color = "secondary" (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          Enter Your Pin
+        </ion-label>
+        <ion-input #userpin type = "password"></ion-input>
+      </ion-item>
+      <ion-button (click) = "verify(userpin.value)">Verify</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

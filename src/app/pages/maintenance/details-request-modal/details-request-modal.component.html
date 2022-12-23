@@ -1,0 +1,87 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--ion-background-color: #363F58;">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">{{maintenanceObj.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-avatar
+        [ngClass]="{'complete-bg': maintenanceObj.status == 'Complete', 'inprogress-bg': maintenanceObj.status == 'In Progress' }">
+      </ion-avatar>
+      {{maintenanceObj.status}}
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        Issue Date
+        <p>{{maintenanceObj.issueDate | date: 'mediumDate'}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        Unit/Location
+        <p>{{maintenanceObj.unit}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        Permission to Enter
+        <p>{{maintenanceObj.permission}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        Priority
+        <p>{{maintenanceObj.priority}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        Detail
+        <p>{{maintenanceObj.description}}</p>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item lines="none">
+      <ion-label>
+        Image/File
+        <p>{{maintenanceObj.imageId? maintenanceObj.imageId : 'N/A'}}</p>
+      </ion-label>
+    </ion-item> -->
+    <ion-item lines="inset" style="margin-right: 16px; --min-height: auto  !important"></ion-item>
+  </ion-list>
+  <ion-list>
+    <h3 style="margin-left: 16px;">Comments:</h3>
+    <ng-container *ngIf="maintenanceComments">
+      <ion-item style="--border-radius: 8px; --background: whitesmoke; margin: 16px;" lines="none"
+        *ngFor="let item of maintenanceComments">
+        <ion-label>
+          <h4>{{item.creatorName}}
+            <span style="font-size: 12px; font-weight: normal; margin-left: 4%;">{{item.createDate |
+              date:'short'}}</span>
+          </h4>
+          <p>{{item.messageBody}}</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+    <ion-item lines="none">
+      <ion-textarea [formControl]="comment" style="border: .5px solid; border-radius: 6px; padding-left: 4px;"
+        placeholder="Leave a comment">
+      </ion-textarea>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="secondary" (click)="sendComment()" slot="end">Send</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col class="ion-text-center ion-margin-horizontal">
+      <ion-button fill="outline" color="danger" expand="block" (click)="dismiss()">Cancel Request</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

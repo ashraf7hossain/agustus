@@ -1,0 +1,11 @@
+<form id="payment-form" (submit)="handleForm($event)">
+  <div id="payment-element" #cardElement>
+    <!--Stripe.js injects the Payment Element-->
+  </div>
+  <button id="submit">
+    <div class="spinner hidden" id="spinner"></div>
+    <span id="button-text" *ngIf="amount">Pay ${{ amount / 100 }}.00</span>
+    <span id="button-text" *ngIf="priceId">Subscribe</span>
+  </button>
+  <div id="payment-message" class="hidden"></div>
+</form>

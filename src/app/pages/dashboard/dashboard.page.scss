@@ -1,0 +1,41 @@
+.bg-transparent {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  ion-back-button {
+    color: black;
+  }
+  ion-menu-button {
+    color: white;
+  }
+}
+/* Transparent standard */
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+}
+
+ion-header {
+  position: absolute;
+}
+/* Remove bottom border on md */
+.header-md::after {
+  background-image: none;
+}
+.header::after {
+  background-image: none;
+}
+
+/* Remove bottom border on ios */
+.header-ios ion-toolbar:last-child {
+  --border-width: 0;
+}
+.iconSize {
+  font-size: 30px;
+}
+
+.dashboard-banner {
+  --ion-background-color: #363f58;
+  --background: #363f58 url("/assets/img/seattle.jpg") 0 0/100% 45% no-repeat;
+   background: url(../../../assets/img/seattle.jpg) 0 0/100% 70% no-repeat;
+  transition: --offset-top 1s;
+}

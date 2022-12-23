@@ -1,0 +1,37 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="closeModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">{{settingsObject.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form #submitForm="ngForm" novalidate>
+    <ion-list class="ion-padding" *ngFor="let item of settingsObject.inputFields">
+      <ion-item *ngIf="item.type == 'select'">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-select [(ngModel)]="formData[item.key]" [name]="item.key" placeholder="Select One" required>
+          <ion-select-option [value]="selectItem" *ngFor="let selectItem of item.list">{{selectItem}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="formData[item.key] || submitted" class="ion-padding-start">
+          Select one option is required
+        </p>
+      </ion-text>
+      <ion-item *ngIf="item.type == 'text'">
+        <ion-label position="floating">{{item.name}}</ion-label>
+        <ion-input [(ngModel)]="formData[item.key]" [name]="item.key"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="submit(submitForm)" type="submit" expand="block">Send</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

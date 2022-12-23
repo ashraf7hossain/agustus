@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" [routerLink]="['/message-board/add-message-user/'+selectedGroup.id]">
+      <ion-icon name="person-add-outline" style="margin-right: 20px;"></ion-icon>
+    </ion-buttons>
+    <ion-buttons>
+      <!-- <ion-avatar></ion-avatar> -->
+      <ion-title class="ion-text-wrap" *ngIf="selectedGroup.otherUsers.length == 1">
+        <span *ngFor="let user of selectedGroup.otherUsers">
+          {{user.name}}
+        </span>
+      </ion-title>
+      <ion-title class="ion-text-wrap" *ngIf="selectedGroup.otherUsers.length > 1">
+        You,<span *ngFor="let user of selectedGroup.otherUsers; let last = last"> {{user.name}}<span
+            *ngIf="!last">,</span></span>
+      </ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="row messageRowContainer" #scrollable
+    style="height: calc(100% - 120px); position: absolute; top: 0px; background-color: #fff; width: 100%; padding-bottom: 5px; overflow-y: scroll;">
+    <div style="width: 100%; padding-top: 15px;" *ngFor="let message of messages">
+      <mat-card [className]="message.creatorId == userId? 'myMessage' : 'otherMessage'">
+        {{message.messageBody}}
+        <br />
+        <small
+          [className]="message.creatorId == userId ? 'myMessageCreator' : 'otherMessageCreator'">{{message.creatorName}}</small>
+      </mat-card>
+      <small [className]="message.creatorId == userId ? 'myMessageDate' : 'otherMessageDate'">
+        {{message.createDate
+        | date:'short'}}
+      </small>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-item lines="none" style="position: absolute; bottom: 1px; width: 100%;">
+    <ion-textarea class="comment-area" [(ngModel)]="messageBody" (keyup.enter)="sendMessage()" placeholder="Message">
+    </ion-textarea>
+    <div class="col-sm-1" style="margin-left:  10px;">
+      <fa-icon [icon]="['fas','paper-plane']" (click)="sendMessage()"
+        style="font-size: 18px; line-height: 40px; float: left;">
+      </fa-icon>
+    </div>
+  </ion-item>
+</ion-footer>

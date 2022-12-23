@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contact</ion-title>
+    <!-- <ion-buttons slot="end" [routerLink]="['create']">
+      <ion-icon name="person-add-outline" style="margin-right: 20px;"></ion-icon>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-segment style="--background: #363F58; margin: 10px; width: 95% !important;" mode="ios" value="false"
+    color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button [value]="false">
+      <ion-label>Regular Contacts</ion-label>
+    </ion-segment-button>
+    <ion-segment-button [value]="true">
+      <ion-label>Emergency Contacts</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card *ngFor="let item of selectedTabArrayList; let i=index" style="border: 1px solid #f8f8f8">
+    <ion-card-content>
+      <ion-item lines="none" color="none" class="ion-no-padding">
+        <ion-label>
+          <h2 style=" font-weight: bold;">{{item.name}}</h2>
+          <p>Email: {{item.email}}</p>
+          <p>Phone Number: {{item.phoneNumber}}</p>
+          <p>Address: {{item.address}} </p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-list-header *ngIf="(!contactList || !contactList.length)">
+    No Contact found.
+  </ion-list-header>
+  </ion-content>
+

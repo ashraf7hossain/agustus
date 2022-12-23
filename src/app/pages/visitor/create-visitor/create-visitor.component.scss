@@ -1,0 +1,6 @@
+.item.item-md.invalid:not(.input-has-focus):not(.item-input-has-focus) .label.label-md {
+    color: #f53d3d; 
+}
+.item.item-md.invalid:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: #f53d3d;
+}

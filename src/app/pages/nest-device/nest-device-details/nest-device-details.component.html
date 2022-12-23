@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Device Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="nestDevice && nestDevice.type == 'sdm.devices.types.THERMOSTAT'">
+    <ion-item>
+      <ion-label>
+        Conectivity
+        <p>{{nestDevice.traits['sdm.devices.traits.Connectivity'].status}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="thermostatSettingModal('Fan')">
+      <ion-label>
+        Fan
+        <p>{{nestDevice.traits['sdm.devices.traits.Fan'].timerMode}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="cog"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Setting
+        <p>{{nestDevice.traits['sdm.devices.traits.Settings'].temperatureScale}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Temperature
+        <p>{{nestDevice.traits['sdm.devices.traits.Temperature'].ambientTemperatureCelsius}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      (click)="thermostatSettingModal('ThermostatEco', nestDevice.traits['sdm.devices.traits.ThermostatEco'].availableModes)">
+      <ion-label>
+        ThermostatEco
+        <p>Cool: {{nestDevice.traits['sdm.devices.traits.ThermostatEco'].coolCelsius}}</p>
+        <p>Heat: {{nestDevice.traits['sdm.devices.traits.ThermostatEco'].heatCelsius}}</p>
+        <p>Mode: {{nestDevice.traits['sdm.devices.traits.ThermostatEco'].mode}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="cog"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        ThermostatHvac
+        <p>{{nestDevice.traits['sdm.devices.traits.ThermostatHvac'].status}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item
+      (click)="thermostatSettingModal('ThermostatMode', nestDevice.traits['sdm.devices.traits.ThermostatMode'].availableModes)">
+      <ion-label>
+        ThermostatMode
+        <p>{{nestDevice.traits['sdm.devices.traits.ThermostatMode'].mode}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="cog"></ion-icon>
+    </ion-item>
+    <ion-item
+      (click)="thermostatSettingModal('ThermostatTemperatureSetpoint', [nestDevice.traits['sdm.devices.traits.ThermostatTemperatureSetpoint'].coolCelsius, nestDevice.traits['sdm.devices.traits.ThermostatTemperatureSetpoint'].heatCelsius])">
+      <ion-label>
+        ThermostatTemperatureSetpoint
+        <p>Cool: {{nestDevice.traits['sdm.devices.traits.ThermostatTemperatureSetpoint'].coolCelsius}}</p>
+        <p>Heat: {{nestDevice.traits['sdm.devices.traits.ThermostatTemperatureSetpoint'].heatCelsius}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="cog"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="nestDevice && nestDevice.type == 'sdm.devices.types.CAMERA'">
+    <ion-item lines="none">
+      <ion-button (click)="cameraEventImage()" color="secondary">Event Image</ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button (click)="cameraEventImage()" color="secondary">Live Stream</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

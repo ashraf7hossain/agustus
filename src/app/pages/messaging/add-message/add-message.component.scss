@@ -1,0 +1,81 @@
+.active {
+  background-color: #32a8db;
+  color: #fff;
+}
+
+.messageRowContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.messageRowContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.myMessage {
+  background-color: rgb(0, 153, 255);
+  color: #fff;
+  clear: right;
+  max-width: 55%;
+  margin: 10px 15px 0 0;
+  float: right;
+  line-height: 19.2px;
+  padding: 6px 12px 7px;
+  border-radius: 1.3em;
+  text-align: left;
+  font-size: 15px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.myMessageDate {
+  clear: right;
+  float: right;
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0 25px 0 0;
+}
+
+.myMessageCreator {
+  color: #fff;
+  float: right;
+  font-size: 10px;
+}
+
+.otherMessage {
+  background-color: #f1f0f0;
+  color: #000;
+  clear: left;
+  max-width: 55%;
+  margin: 10px 0 0 15px;
+  float: left;
+  line-height: 19.2px;
+  padding: 6px 12px 7px;
+  border-radius: 1.3em;
+  text-align: left;
+  font-size: 15px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.otherMessageDate {
+  clear: left;
+  float: left;
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0 0 0 25px;
+}
+
+.otherMessageCreator {
+  color: #000;
+  float: left;
+  font-size: 10px;
+}
+.comment-area {
+  width: 100%;
+  border: 0.5px solid lightgray;
+  // border-radius: 25px;
+  padding-left: 10px;
+  height: 62%;
+  // width: 90%; height: 40px; border: 0.5px thin solid #eee;
+}

@@ -1,0 +1,40 @@
+<ion-content>
+  <form [formGroup] = "signupForm" (ngSubmit) = "signUp()">
+    <ion-list>
+      <h1>
+        card information
+      </h1>
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          cardnumber
+        </ion-label>
+        <ion-input formControlName = "cardnumber" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          PIN
+        </ion-label>
+        <ion-input formControlName = "userpin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          Expire month
+        </ion-label>
+        <ion-input type = "number" min = "1" max = "12" maxlength = "2" formControlName = "expmonth" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          Expire year
+        </ion-label>
+        <ion-input type = "number" maxlength = "4" formControlName = "expyear" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position = "floating" for="" color = "primary">
+          cvc
+        </ion-label>
+        <ion-input formControlName = "cvc" ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type = "submit">Submit</ion-button>
+  </form>
+</ion-content>

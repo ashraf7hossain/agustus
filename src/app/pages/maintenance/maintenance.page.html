@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Maintenance Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-segment style="--background: #363F58; margin: 10px; width: 95% !important;" mode="ios" value="pending-tab"
+    color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="pending-tab">
+      <ion-label>Pending</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="complete-tab">
+      <ion-label>Complete</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <app-pending-request *ngIf="selectedTab === 'pending-tab' && pendingList " [pendingList]="pendingList">
+  </app-pending-request>
+  <app-complete-request *ngIf="selectedTab === 'complete-tab' && completeList" [completeList]="completeList">
+  </app-complete-request>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col class="ion-text-center ion-margin-horizontal">
+      <ion-button [routerLink]="['new-request']" fill="outline" color="secondary" expand="block">Add New</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Amenity Reservations</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="reservedAmenities && reservedAmenities.length">
+    <ion-item-group *ngFor="let amenity of reservedAmenitiesObjKeys">
+      <ion-item-divider sticky>
+        <ion-label>
+          {{amenity | date: 'fullDate'}}
+        </ion-label>
+      </ion-item-divider>
+      <ion-item *ngFor="let item of reservedAmenitiesGroupingObj[amenity]; let i=index"
+        [attr.track]="i > 10 ? (i > 20 ? i-20: i-10): i">
+        <ion-label>
+          <h3>{{item.name}}</h3>
+          <p>{{item.startTime | date: 'shortTime'}} &mdash; {{item.endTime | date: 'shortTime'}} : {{item.notes}}</p>
+          <p>Guest: {{item.totalGuests}}</p>
+          <p>Status: {{item.isApproved? 'Reserved' : 'Pendding'}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+  <ion-list-header *ngIf="!reservedAmenities || !reservedAmenities.length">
+    Currently you haven't any Reservations.
+  </ion-list-header>
+</ion-content>

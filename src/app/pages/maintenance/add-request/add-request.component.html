@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-title class="ion-no-padding">New Request</ion-title>
+  <form [formGroup]="requestForm" (ngSubmit)="addMaintenance()">
+    <div class="row">
+      <div class="" style="margin-top: 16px;">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>Issue Type</ion-label>
+          <ion-select formControlName="name" placeholder="">
+            <ion-select-option *ngFor="let issue of issueList" [value]="issue.value">{{issue.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <mat-error *ngIf="requestForm.controls.name.touched && requestForm.controls.name.invalid">
+          <span *ngIf="requestForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="">
+        <ion-item class="ion-no-padding" lines="full">
+          <ion-label>Issue Date</ion-label>
+          <ion-icon slot="end" name="calendar-outline"></ion-icon>
+          <ion-datetime formControlName="issueDate" displayFormat="D MMM YYYY H:mm"></ion-datetime>
+        </ion-item>
+        <mat-error *ngIf="requestForm.controls.issueDate.touched && requestForm.controls.issueDate.invalid">
+          <span *ngIf="requestForm.controls.issueDate.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-radio-group formControlName="permission">
+          <ion-list-header class="ion-no-padding">
+            <ion-label>Permission to enter
+              <p>You can always change your default preference anytime by going to Settings</p>
+            </ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Yes</ion-label>
+            <ion-radio slot="end" value="yes"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>No</ion-label>
+            <ion-radio slot="end" value="no"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <mat-error *ngIf="requestForm.controls.permission.touched && requestForm.controls.permission.invalid">
+          <span *ngIf="requestForm.controls.permission.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-radio-group formControlName="priority">
+          <ion-list-header class="ion-no-padding">
+            <ion-label>Priority</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Low</ion-label>
+            <ion-radio slot="end" value="low"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Medium</ion-label>
+            <ion-radio slot="end" value="medium"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>High</ion-label>
+            <ion-radio slot="end" value="high"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <mat-error *ngIf="requestForm.controls.priority.touched && requestForm.controls.priority.invalid">
+          <span *ngIf="requestForm.controls.priority.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-item style="--min-height: 10px;" class="ion-no-padding" lines="full">
+          <ion-label position="floating">Unit</ion-label>
+          <ion-input style="--padding-top: 10px; --padding-bottom: 0px" class="ion-no-padding" formControlName="unit">
+          </ion-input>
+        </ion-item>
+        <mat-error *ngIf="requestForm.controls.unit.touched && requestForm.controls.unit.invalid">
+          <span *ngIf="requestForm.controls.unit.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </div>
+      <div class="" style="margin-top: 16px;">
+        <ion-item style="--min-height: 10px;" class="ion-no-padding" lines="full">
+          <ion-label position="floating">Describe the issue</ion-label>
+          <ion-textarea style="--padding-top: 0px; --padding-bottom: 0px" class="ion-no-padding"
+            formControlName="description"></ion-textarea>
+        </ion-item>
+      </div>
+      <ion-row class="ion-margin-top">
+        <ion-label>Image Upload</ion-label>
+        <ion-col size="12" class="ion-text-center ion-padding"
+          style="margin-top:10px; border: .5px dotted; border-radius: 8px;">
+          <ion-button color="secondary">Browse</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="" style="padding-right: 0; margin-top: 16px;">
+      <ion-button color="secondary" [disabled]="!requestForm.valid" type="submit">Save</ion-button>
+    </div>
+  </form>
+</ion-content>

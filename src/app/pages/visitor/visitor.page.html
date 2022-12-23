@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Visitor</ion-title>
+    <ion-buttons slot="end" [routerLink]="['create']">
+      <ion-icon name="person-add-outline" style="margin-right: 20px;"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-segment style="--background: #363F58; margin: 10px; width: 95% !important;" mode="ios" value="false"
+    color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button [value]="false">
+      <ion-label>Pending</ion-label>
+    </ion-segment-button>
+    <ion-segment-button [value]="true">
+      <ion-label>Approved</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card *ngFor="let item of selectedTabArrayList; let i=index" style="border: 1px solid #f8f8f8">
+    <ion-card-content>
+      <ion-item lines="none" color="none" class="ion-no-padding">
+        <ion-label>
+          <h2 style=" font-weight: bold;">{{item.visitorName}}</h2>
+          <p>Has Access key: {{item.isAccessKey? 'Yes' : 'No'}}</p>
+          <p>Has Parking Pass: {{item.isParkingPassKey? 'Yes' : 'No'}}</p>
+          <p>Arrival Time: {{item.arrivalTime | date: 'medium'}} </p>
+          <p>Departure Time: {{item.departureTime | date: 'medium'}} </p>
+          <p *ngIf="item.notes">Notes: {{item.notes}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-list-header *ngIf="(!visitorList || !visitorList.length)">
+    Currently you haven't any Visitors.
+  </ion-list-header>
+</ion-content>

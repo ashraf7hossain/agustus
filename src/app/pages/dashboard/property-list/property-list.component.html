@@ -1,0 +1,22 @@
+<ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+  <ion-slide (click)="navigateToDetailPage(card)" style="width: 150px; height: 200px; border: 2px solid #f8f8f8" *ngFor="let card of candos1">
+    <ion-col>
+      <ion-avatar>
+        <fa-icon style="margin: auto; font-size: 25px; color: white;" [icon]="card.icon">
+        </fa-icon>
+      </ion-avatar>
+      <ion-label>{{card.title}}</ion-label>
+    </ion-col>
+  </ion-slide>
+</ion-slides>
+<ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+  <ion-slide (click)="navigateToDetailPage(card)" style="width: 150px; height: 200px; border: 2px solid #f8f8f8" *ngFor="let card of candos2">
+    <ion-col>
+      <ion-avatar>
+        <fa-icon style="margin: auto; font-size: 25px; color: white;" [icon]="card.icon">
+        </fa-icon>
+      </ion-avatar>
+      <ion-label>{{card.title}}</ion-label>
+    </ion-col>
+  </ion-slide>
+</ion-slides>

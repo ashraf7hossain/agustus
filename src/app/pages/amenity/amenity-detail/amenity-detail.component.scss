@@ -1,0 +1,15 @@
+.active-property {
+  width: 65%;
+  --padding-start: 6px;
+  --color: var(--ion-color-primary);
+}
+
+.inactive-property {
+  width: 65%;
+  --color: var(--ion-color-medium);
+  --background: lightgray;
+  --padding-start: 6px;
+}
+.full-property {
+  --color: var(--ion-color-danger);
+}

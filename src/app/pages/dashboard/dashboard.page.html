@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar class="bg-transparent">
+    <ion-buttons>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content
+  [style.--offset-top]="offsetTop"
+  class="dashboard-banner"
+  fullscreen="true"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
+  <h2 style="color: white; padding-top: 160px; padding-left: 10px">
+    PROMENADE CONDOS
+  </h2>
+  <app-property-list></app-property-list>
+  <app-concierge-list></app-concierge-list>
+  <app-promotion-list></app-promotion-list>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="dark" (click)="openModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

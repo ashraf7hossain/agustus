@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Smart-Devices</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="deviceList">
+    <ion-card *ngFor="let device of deviceList">
+      <ion-item class="ion-activated" (click)="getDeviceDetails(device.name)">
+        <ion-label>{{generateDeviceName(device.type)}}</ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "augustus-7c51b"
+  },
+  "targets": {
+    "augustus-7c51b": {
+      "hosting": {
+        "app": [
+          "augustus-7c51b"
+        ]
+      }
+    }
+  }
+}

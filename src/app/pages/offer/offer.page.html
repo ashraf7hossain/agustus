@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-wrap ion-padding-end">Offer</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-segment style="--background: #363F58; margin: 10px; width: 95% !important;" mode="ios" value="publish"
+    color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="publish">
+      <ion-label>Publish</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="unpublish">
+      <ion-label>Unpublish</ion-label>
+    </ion-segment-button>
+  </ion-segment> -->
+  <ion-list>
+    <ion-item *ngFor="let offer of filteredOfferList; let i=index" [routerLink]="['details/'+offer.id]">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="baseUrl+ '/api/file/'+offer.imageId"></ion-img>
+      </ion-thumbnail>
+      <ion-label style="margin: 0px;">
+        <h4 style="margin-bottom: 0px;">
+          {{ offer.storeName }}
+          <span *ngIf="offer.status == 'publish'" style="color: red; float: right; font-size: smaller;">{{offerVlidationStatus(offer)}}</span>
+        </h4>
+        <h5 style="margin-bottom: 6px;">{{ offer.offerTitle}}</h5>
+        <ion-label>
+          <p>{{ offer.offerDetails }}</p>
+        </ion-label>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list-header [hidden]="filteredOfferList && filteredOfferList.length > 0">
+    No Offers Found
+  </ion-list-header>
+</ion-content>

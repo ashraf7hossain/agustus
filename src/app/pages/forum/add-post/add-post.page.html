@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="forumForm" (ngSubmit)="saveForum()">
+    <div class="row">
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" formControlName="title" required>
+          <mat-error *ngIf="forumForm.controls.title.touched && forumForm.controls.title.invalid">
+            <span *ngIf="forumForm.controls.title.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Message</mat-label>
+          <textarea matInput formControlName="message" required></textarea>
+          <mat-error *ngIf="forumForm.controls.message.touched && forumForm.controls.message.invalid">
+            <span *ngIf="forumForm.controls.message.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="" style="padding-right: 0;">
+      <ion-button color="secondary" [disabled]="!forumForm.valid" type="submit">Save</ion-button>
+    </div>
+  </form>
+</ion-content>

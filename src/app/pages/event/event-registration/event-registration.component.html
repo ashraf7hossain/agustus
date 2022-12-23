@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-wrap ion-padding-end">Add Registration</ion-title>
+    <ion-buttons slot="end" (click)="closePopover()">
+      <ion-icon style="font-size: 22px;" name="close"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="eventRegistrationForm" (ngSubmit)="addEventAttendee()">
+    <div class="row">
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Total Guests</mat-label>
+          <input matInput type="number" formControlName="totalGuests" required>
+          <mat-error
+            *ngIf="eventRegistrationForm.controls.totalGuests.touched && eventRegistrationForm.controls.totalGuests.invalid">
+            <span *ngIf="eventRegistrationForm.controls.totalGuests.errors.required">This field is mandatory.</span>
+            <span *ngIf="eventRegistrationForm.controls.totalGuests.errors.max">Max number of guests is
+              {{amenity.maxGuests}}.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Ticket Class</mat-label>
+          <input matInput type="text" formControlName="ticketClass" required>
+          <mat-error
+            *ngIf="eventRegistrationForm.controls.ticketClass.touched && eventRegistrationForm.controls.ticketClass.invalid">
+            <span *ngIf="eventRegistrationForm.controls.ticketClass.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Cost</mat-label>
+          <input matInput type="number" formControlName="cost" required>
+          <mat-error *ngIf="eventRegistrationForm.controls.cost.touched && eventRegistrationForm.controls.cost.invalid">
+            <span *ngIf="eventRegistrationForm.controls.cost.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Phone Number</mat-label>
+          <input matInput type="text" formControlName="phoneNumber" required>
+          <mat-error
+            *ngIf="eventRegistrationForm.controls.phoneNumber.touched && eventRegistrationForm.controls.phoneNumber.invalid">
+            <span *ngIf="eventRegistrationForm.controls.phoneNumber.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="emailAddress" required>
+          <mat-error
+            *ngIf="eventRegistrationForm.controls.emailAddress.touched && eventRegistrationForm.controls.emailAddress.invalid">
+            <span *ngIf="eventRegistrationForm.controls.emailAddress.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Referral Code</mat-label>
+          <input matInput type="text" formControlName="referralCode" required>
+          <mat-error
+            *ngIf="eventRegistrationForm.controls.referralCode.touched && eventRegistrationForm.controls.referralCode.invalid">
+            <span *ngIf="eventRegistrationForm.controls.referralCode.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="" style="padding-right: 0;">
+      <ion-button color="secondary" [disabled]="!eventRegistrationForm.valid" type="submit">Send</ion-button>
+    </div>
+  </form>
+</ion-content>
