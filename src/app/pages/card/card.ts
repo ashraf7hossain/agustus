@@ -80,7 +80,7 @@ export class CardPage {
       console.log(res);
     });
 
-    this.http.post(`${environment.ngRok}/register`,httpData).subscribe((res)=>{
+    this.http.post(`${environment.ngRok}/accounts/register`,httpData).subscribe((res)=>{
       console.log(res);
     })
     

@@ -58,7 +58,10 @@
     {{ subscriptionList | json }}
   </p>
 </ion-content>
-
+<canvas id = "canvas"></canvas>
+<img #imageContent hidden width="300" height="300" >
+<img #original hidden width="300" height="300" >
+<img [src] = "imgUrl" alt="" hidden id = "profileImg">
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
     <ion-header>

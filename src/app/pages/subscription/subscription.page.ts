@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { SubscriptionService } from "./subscription.service";
 import { UserData } from "@app/providers/user-data";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
@@ -14,6 +14,10 @@ import { alertController } from "@ionic/core";
 import { AlertController, ToastController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 import { environment } from "@environments/environment";
+import { ImageService } from "@app/providers/image.service";
+
+
+declare var faceapi;
 
 const { Camera } = Plugins;
 
@@ -46,14 +50,26 @@ export class SubscriptionPage implements OnInit {
   products: any[] = [];
   prices: any[] = [];
   isModalOpen: boolean = false;
+
+  @ViewChild("imageContent") imageContent: ElementRef;
+  @ViewChild("original") OriginalimageContent: ElementRef;
+
+  canvasVideo: any;
   constructor(
     private subscriptionService: SubscriptionService,
     private userData: UserData,
     private http: HttpClient,
     private storage: Storage,
     private alertControl: AlertController,
-    private toastController: ToastController
-  ) {}
+    private toastController: ToastController,
+    private image: ImageService
+  ) {
+    Promise.all([
+      faceapi.nets.tinyFaceDetector.loadFromUri("assets/models"),
+      faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"),
+      faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"),
+    ]);
+  }
 
   httpHeaders = new HttpHeaders({
     "Content-Type": "application/x-www-form-urlencoded",
@@ -63,7 +79,13 @@ export class SubscriptionPage implements OnInit {
   });
 
   subscriptionList: any;
+  imgUrl: string = "";
   async ngOnInit() {
+    Promise.all([
+      faceapi.nets.tinyFaceDetector.loadFromUri("assets/models"),
+      faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"),
+      faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"),
+    ]);
     const { userId } = await this.userData.getUserData();
     this.userData.getUserSubscription().then(async (val) => {
       this.subscriptionData = val;
@@ -72,13 +94,12 @@ export class SubscriptionPage implements OnInit {
         this.createUserSubscription(userId, userEmail);
       }
     });
-    // this.getter("subscriptions");
+    
     this.getEverything("products").subscribe((res: any) => {
       console.log(res);
       this.products = res.data;
       console.log(this.products);
     });
-
     setTimeout(() => {
       this.getEverything("prices").subscribe((res: any) => {
         let prices = res.data;
@@ -129,7 +150,25 @@ export class SubscriptionPage implements OnInit {
       source: CameraSource.Prompt, // Camera, Photos or Prompt!
     });
     if (image) {
-      console.log(image.dataUrl);
+      const base64Image = image.dataUrl;
+      this.imageContent.nativeElement.src = base64Image;
+
+      let croppedImageBase64 = await this.image.detectface(
+        this.imageContent.nativeElement,
+        this.imageContent.nativeElement
+      );
+      // console.log("corpped Image ", croppedImageBase64);
+      
+      let imgId = await this.storage.get("profileImageId");
+      let imgUrl = `${environment.baseUrl}/api/ProfileFile/${imgId}`;
+  
+
+      let origin64 = await this.image.getDataBlob(imgUrl);
+      this.OriginalimageContent.nativeElement.src = origin64;
+      console.log("base64 Original ",origin64);
+      let croppedOriginal = await this.image.detectface(this.OriginalimageContent.nativeElement,this.OriginalimageContent.nativeElement);
+      console.log("Cropped Original", croppedOriginal);
+      
     }
   }
   async presentToast(msg: string, color = "danger") {
@@ -152,34 +191,6 @@ export class SubscriptionPage implements OnInit {
   onSelectPlan(planData) {
     this.loadPayment = planData ? true : false;
     this.seletedPlan = planData;
-  }
-
-  createProduct(): void {
-    const aurl = "https://api.stripe.com/v1/prices";
-
-    const body = {
-      name: "node js full course",
-    };
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Bearer sk_test_51MERl5Hk6eXJ2rY05sv1WnlLgleUT0fce5l7qHms9XjLMjQ3SYS5iA7CTbpS7QnBY15h1AEE9vtMtUmY7asMLYpy00LoL5b1gj",
-      // name: "Angular Master Class",
-    });
-
-    let httpParams = new HttpParams()
-      .set("product", "prod_MymiCvB0GDomXY")
-      .set("currency", "usd")
-      .set("unit_amount", "5")
-      .set("recurring[interval]", "month");
-    this.http
-      .post(`${aurl}`, httpParams, {
-        headers: httpHeaders,
-      })
-      .subscribe((res) => {
-        console.log(res);
-      });
   }
 
   getEverything(route: string) {

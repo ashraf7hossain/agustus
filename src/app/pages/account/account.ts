@@ -49,7 +49,7 @@ export class AccountPage implements OnInit  {
     
     let email = await this.storage.get('username');
     let data = new HttpParams().set('email',email);
-    this.http.post(`${environment.ngRok}/get`,data).subscribe((res : any)=>{
+    this.http.post(`${environment.ngRok}/accounts/get`,data).subscribe((res : any)=>{
       this.storage.set('stripe_user',JSON.stringify(res.user));
       this.stripe_customer_id = res.user.stripe_customer_id;
     });

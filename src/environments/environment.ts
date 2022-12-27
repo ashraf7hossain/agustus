@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://23.119.176.135:2288',
-  ngRok: 'https://1502-103-95-98-139.ap.ngrok.io',
+  ngRok: 'http://127.0.0.1:5001',
   stripe: {
     publish_key: 'pk_test_1PJtEwBsRBjQ5bBIIXmmdtin00skdwLHgs'
   },

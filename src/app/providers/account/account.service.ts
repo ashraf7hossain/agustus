@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, pipe } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { environment as ENV } from '@environments/environment';
+import { Storage } from '@ionic/storage';
 
 // Internal
 
@@ -12,7 +13,7 @@ import { environment as ENV } from '@environments/environment';
 export class AccountService {
     private baseUrl: string = ENV.baseUrl;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private storage: Storage) {
 
     }
 
@@ -116,7 +117,7 @@ export class AccountService {
       for (let index = 0; index < images.length; index++) {
         const element = images[index];
         formData.append('uploadedImages', element);
-        
+        this.storage.set('profile64',element);
       }
       return this.http.post(url, formData, {responseType: 'text'}).pipe(
           map((res: any) => {
