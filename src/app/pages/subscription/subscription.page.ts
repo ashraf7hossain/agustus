@@ -17,6 +17,7 @@ import { environment } from "@environments/environment";
 import { ImageService } from "@app/providers/image.service";
 
 
+
 declare var faceapi;
 
 const { Camera } = Plugins;
@@ -165,9 +166,25 @@ export class SubscriptionPage implements OnInit {
 
       let origin64 = await this.image.getDataBlob(imgUrl);
       this.OriginalimageContent.nativeElement.src = origin64;
-      console.log("base64 Original ",origin64);
-      let croppedOriginal = await this.image.detectface(this.OriginalimageContent.nativeElement,this.OriginalimageContent.nativeElement);
-      console.log("Cropped Original", croppedOriginal);
+
+      let croppedOriginalBase64 = await this.image.detectface(this.OriginalimageContent.nativeElement,this.OriginalimageContent.nativeElement);
+
+      console.log("cropped original ", croppedOriginalBase64);
+      
+      let formdata = new FormData();
+      formdata.append('original_img' , croppedOriginalBase64);
+      formdata.append('face_img', croppedImageBase64);
+
+      let headers = new HttpHeaders({
+        "Content-Type": "multipart/form-data; boundary=AaB03x",
+      })
+
+      this.http.post(`${environment.ngRok}/payment/face_verification`, formdata,{
+        headers: headers
+      }).subscribe(res=>{
+        console.log(" face verification response ", res);
+      })
+      
       
     }
   }
