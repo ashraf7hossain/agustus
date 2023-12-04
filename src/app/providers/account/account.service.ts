@@ -111,7 +111,7 @@ export class AccountService {
         );
     }
 
-    uploadProfileImages(images: Array<any>, userId: string){
+    uploadprofileimages(images: Array<any>, userId: string){
       let url: string = this.baseUrl + `/api/account/userPhotoUpload/`+ userId;
       const formData =  new FormData();
       for (let index = 0; index < images.length; index++) {

@@ -79,9 +79,9 @@ export class ProfileImageComponent implements OnInit {
 
   async detectFromImage(imageElement: any, imageRaw: any){
 
-    // const canvas = faceapi.createCanvasFromMedia(imageElement);
-    // const displaySize = { width: imageElement.width, height: imageElement.height };
-    // faceapi.matchDimensions(canvas, displaySize);
+    const canvas = faceapi.createCanvasFromMedia(imageElement);
+    const displaySize = { width: imageElement.width, height: imageElement.height };
+    faceapi.matchDimensions(canvas, displaySize);
     
     const detections = await faceapi
     .detectAllFaces(imageElement, new faceapi.TinyFaceDetectorOptions())
@@ -129,7 +129,7 @@ convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
 
 uploadImage(){
   this.isLoader =  true;
-  this.accountService.uploadProfileImages(this.imageFiles, this.userId).subscribe(res => {
+  this.accountService.uploadprofileimages(this.imageFiles, this.userId).subscribe(res => {
     this.isLoader =  false;
     const msg = 'Upload image successfully.'
     const imageId = res;
