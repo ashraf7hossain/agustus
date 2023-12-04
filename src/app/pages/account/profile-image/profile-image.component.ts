@@ -79,9 +79,9 @@ export class ProfileImageComponent implements OnInit {
 
   async detectFromImage(imageElement: any, imageRaw: any){
 
-    const canvas = faceapi.createCanvasFromMedia(imageElement);
-    const displaySize = { width: imageElement.width, height: imageElement.height };
-    faceapi.matchDimensions(canvas, displaySize);
+    // const canvas = faceapi.createCanvasFromMedia(imageElement);
+    // const displaySize = { width: imageElement.width, height: imageElement.height };
+    // faceapi.matchDimensions(canvas, displaySize);
     
     const detections = await faceapi
     .detectAllFaces(imageElement, new faceapi.TinyFaceDetectorOptions())
